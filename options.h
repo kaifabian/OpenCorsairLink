@@ -76,6 +76,7 @@ struct option_parse_return {
 	struct fan_table fan1;
 	struct fan_table pump;
 	uint8_t pump_mode;
+	uint8_t rail_mode;
 };
 
 int options_parse(int argc, char **argv,

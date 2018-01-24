@@ -50,6 +50,8 @@ static struct option long_options[] = {
 
 	{"pump-mode",         required_argument, NULL,  17},
 
+	{"rail-mode",         required_argument, NULL,  18},
+
 	{0, 0, 0, 0}
 };
 
@@ -148,6 +150,13 @@ int options_parse(int argc, char **argv,
 		case 17:
 			sscanf(optarg, "%hhu", &settings->pump_mode);
 			break;
+		case 18:
+			sscanf(optarg, "%hhu", &settings->rail_mode);
+			if(settings->rail_mode < 1 || settings->rail_mode > 2) {
+				msg_info("Rail mode %d is invalid", settings->rail_mode);
+				settings->rail_mode = 0;
+			}
+			break;
 
 		default:
 			options_print();
@@ -191,6 +200,9 @@ void options_print() {
 
 	msg_info("\n\tPump mode:\n");
 	msg_info("\t--pump-mode <mode>\t:set to 3 for quiet, and 5 for performance\n");
+
+	msg_info("\n\tPSU mode:\n");
+	msg_info("\t--rail-mode <mode>\t:set to 1 for multi-rail, and 2 for single-rail\n");
 
 	msg_info("\n Without options, OpenCorsairLink will show the status of any detected Corsair Link device.\n");
 }
