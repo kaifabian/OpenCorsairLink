@@ -200,3 +200,40 @@ int corsairlink_rmi_power_total_wattage(struct corsair_device_info *dev,
 	return 0;
 }
 
+int corsairlink_rmi_set_rail_state(struct corsair_device_info *dev,
+			struct libusb_device_handle *handle,
+			uint8_t rail_state, uint8_t *rail_state_out)
+{
+	int rr;
+	uint8_t response[64];
+	uint8_t commands[64];
+	memset(response, 0, sizeof(response));
+	memset(commands, 0, sizeof(commands));
+
+	uint32_t data = 0;
+
+	commands[0] = (rail_state == 0) ? 0x03 : 0x02; // Length
+	commands[1] = 0xD8; // Command Opcode: 12V OCP state
+	commands[2] = rail_state; // Command data... 00 = read, 01 = set multi-rail, 02 = set single-rail
+	commands[3] = 0x00;
+
+	rr = dev->driver->write(handle, dev->write_endpoint, commands, 64);
+	rr = dev->driver->read(handle, dev->read_endpoint, response, 64);
+
+	if(rail_state_out)
+		*rail_state_out = response[2];
+
+	msg_debug("%02X %02X %02X %02X %02X %02X\n",
+		response[0], response[1], response[2],
+		response[3], response[4], response[5]);
+
+	return 0;
+}
+
+int corsairlink_rmi_get_rail_state(struct corsair_device_info *dev,
+			struct libusb_device_handle *handle,
+			uint8_t *rail_state_out)
+{
+	return corsairlink_rmi_set_rail_state(dev, handle, 0 /* 0: get state */, rail_state_out);
+}
+

@@ -54,4 +54,6 @@ int corsairlink_rmi_name(struct corsair_device_info *dev, struct libusb_device_h
 int corsairlink_rmi_vendor(struct corsair_device_info *dev, struct libusb_device_handle *handle, char *name);
 int corsairlink_rmi_product(struct corsair_device_info *dev, struct libusb_device_handle *handle, char *name);
 
+int corsairlink_rmi_set_rail_state(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t rail_state, uint8_t *rail_state_out);
+int corsairlink_rmi_get_rail_state(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t *rail_state_out);
 #endif

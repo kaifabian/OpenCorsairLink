@@ -58,6 +58,8 @@ struct corsair_device_driver {
 		int (*voltage)(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint16_t *volts);
 		int (*amperage)(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint16_t *amps);
 		int (*wattage)(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint16_t *watts);
+		int (*rail_state)(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t *rail_state);
+		int (*set_rail_state)(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t rail_state, uint8_t *new_rail_state);
 	} power;
 
 	struct time_functions {

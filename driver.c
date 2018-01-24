@@ -97,6 +97,8 @@ struct corsair_device_driver corsairlink_driver_rmi = {
 		.voltage = corsairlink_rmi_output_volts,
 		.amperage = corsairlink_rmi_output_amps,
 		.wattage = corsairlink_rmi_output_watts,
+		.rail_state = corsairlink_rmi_get_rail_state,
+		.set_rail_state = corsairlink_rmi_set_rail_state,
 	},
 	.psu_time = {
 		.powered = corsairlink_rmi_time_powered,
