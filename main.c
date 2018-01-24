@@ -40,7 +40,8 @@ int psu_settings(struct corsair_device_scan scanned_device, struct option_parse_
 	name[sizeof(name) - 1] = 0;
 	uint32_t time = 0;
 	uint16_t supply_volts, supply_watts, temperature,
-		output_volts, output_amps, output_watts; 
+		output_volts, output_amps, output_watts;
+	uint8_t rail_state;
 	struct corsair_device_info *dev;
 	struct libusb_device_handle *handle;
 
@@ -82,6 +83,13 @@ int psu_settings(struct corsair_device_scan scanned_device, struct option_parse_
 	rr = dev->driver->power.total_wattage(dev, handle, &supply_watts);
 	msg_info("Total Watts: %5.2f\n", convert_bytes_double(supply_watts));
 	msg_debug("DEBUG: supply done\n");
+
+	/* fetch PSU 12V rail state */
+	const char* rail_states[] = {"not supported", "multi-rail", "single-rail"};
+
+	rr = dev->driver->power.rail_state(dev, handle, &rail_state);
+	msg_info("12V Rails state: %s\n", rail_states[rail_state]);
+	msg_debug("DEBUG: rail state done\n");
 
 	/* fetch PSU output */
 	for (ii=0; ii<3; ii++) {
