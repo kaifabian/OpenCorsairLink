@@ -89,9 +89,8 @@ int psu_settings(struct corsair_device_scan scanned_device, struct option_parse_
 
 	if(settings.rail_mode != 0) {
 		rr = dev->driver->power.set_rail_state(dev, handle, settings.rail_mode, &rail_state);
-	} else {
-		rr = dev->driver->power.rail_state(dev, handle, &rail_state);
 	}
+	rr = dev->driver->power.rail_state(dev, handle, &rail_state);
 	msg_info("12V Rails state: %s\n", rail_states[rail_state]);
 	msg_debug("DEBUG: rail state done\n");
 
