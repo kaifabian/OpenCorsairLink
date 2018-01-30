@@ -212,9 +212,9 @@ int corsairlink_rmi_set_rail_state(struct corsair_device_info *dev,
 
 	uint32_t data = 0;
 
-	commands[0] = (rail_state == 0) ? 0x03 : 0x02; // Length
+	commands[0] = (rail_state == 0) ? 0x03 /* read */: 0x02 /* write */; // Length
 	commands[1] = 0xD8; // Command Opcode: 12V OCP state
-	commands[2] = rail_state; // Command data... 00 = read, 01 = set multi-rail, 02 = set single-rail
+	commands[2] = rail_state; // Command data... 00 = read, 01 = set single-rail, 02 = set multi-rail
 	commands[3] = 0x00;
 
 	rr = dev->driver->write(handle, dev->write_endpoint, commands, 64);

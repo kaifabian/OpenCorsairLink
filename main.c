@@ -85,7 +85,7 @@ int psu_settings(struct corsair_device_scan scanned_device, struct option_parse_
 	msg_debug("DEBUG: supply done\n");
 
 	/* fetch PSU 12V rail state */
-	const char* rail_states[] = {"not supported", "multi-rail", "single-rail"};
+	const char* rail_states[] = {"not supported", "single-rail", "multi-rail"};
 
 	if(settings.rail_mode != 0) {
 		rr = dev->driver->power.set_rail_state(dev, handle, settings.rail_mode, &rail_state);

@@ -202,7 +202,7 @@ void options_print() {
 	msg_info("\t--pump-mode <mode>\t:set to 3 for quiet, and 5 for performance\n");
 
 	msg_info("\n\tPSU mode:\n");
-	msg_info("\t--rail-mode <mode>\t:set to 1 for multi-rail, and 2 for single-rail\n");
+	msg_info("\t--rail-mode <mode>\t:set to 1 for single-rail, and 2 for multi-rail\n");
 
 	msg_info("\n Without options, OpenCorsairLink will show the status of any detected Corsair Link device.\n");
 }
