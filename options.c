@@ -118,16 +118,16 @@ int options_parse(int argc, char **argv,
 			sscanf(optarg, "%hhd", &settings->warning_led_temp);
 			break;
 		case 11:
-			sscanf(optarg, "%hhd", &settings->fan);
+			sscanf(optarg, "%hhu", &settings->fan);
 			break;
 		case 12:
-			sscanf(optarg, "%hhd", &settings->fan_mode);
+			sscanf(optarg, "%hhu", &settings->fan_mode);
 			break;
 		case 13:
-			sscanf(optarg, "%hhd", &settings->fan_data);
+			sscanf(optarg, "%hu", &settings->fan_data);
 			break;
 		case 14:
-			sscanf(optarg, "%d", &settings->fan_data);
+			sscanf(optarg, "%hu", &settings->fan_data);
 			break;
 		case 15:
 			sscanf(optarg, "%hhd,%hhd,%hhd,%hhd,%hhd,%hhd",
