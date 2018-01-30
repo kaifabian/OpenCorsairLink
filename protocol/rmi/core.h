@@ -31,6 +31,9 @@ int corsairlink_rmi_firmware_id(struct corsair_device_info *dev, struct libusb_d
 int corsairlink_rmi_channel_id(struct corsair_device_info *dev);
 int corsairlink_rmi_product_id(struct corsair_device_info *dev);
 
+int corsairlink_rmi_select_page(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t page);
+int corsairlink_rmi_handshake(struct corsair_device_info *dev, struct libusb_device_handle *handle);
+
 int corsairlink_rmi_output_select(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t select);
 int corsairlink_rmi_output_volts(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint16_t *volts);
 int corsairlink_rmi_output_amps(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint16_t *amps);

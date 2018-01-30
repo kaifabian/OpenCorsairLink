@@ -121,3 +121,37 @@ int corsairlink_rmi_product(struct corsair_device_info *dev, struct libusb_devic
 	return 0;
 }
 
+int corsairlink_rmi_select_page(struct corsair_device_info *dev, struct libusb_device_handle *handle, uint8_t page) {
+	int rr;
+	uint8_t response[64];
+	uint8_t commands[64];
+	memset(response, 0, sizeof(response));
+	memset(commands, 0, sizeof(commands));
+
+	commands[0] = 0x02 /* write register */;
+	commands[1] = 0x00 /* page selector */;
+	commands[2] = page;
+	commands[3] = 0x00;
+
+	rr = dev->driver->write(handle, dev->write_endpoint, commands, 64);
+	rr = dev->driver->read(handle, dev->read_endpoint, response, 64);
+
+	return (response[2] == page) ? 0 : -1;
+}
+
+int corsairlink_rmi_handshake(struct corsair_device_info *dev, struct libusb_device_handle *handle) {
+	int rr;
+	uint8_t response[64];
+	uint8_t commands[64];
+	memset(response, 0, sizeof(response));
+	memset(commands, 0, sizeof(commands));
+
+	commands[0] = 0xFE /* handshake */;
+	commands[1] = 0x03 /* dunno */;
+	commands[2] = 0x00;
+
+	rr = dev->driver->write(handle, dev->write_endpoint, commands, 64);
+	rr = dev->driver->read(handle, dev->read_endpoint, response, 64);
+
+	return 0;
+}
